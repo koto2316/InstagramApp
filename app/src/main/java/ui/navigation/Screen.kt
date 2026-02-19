@@ -4,8 +4,8 @@ package com.example.instagram.ui.navigation
 sealed class Screen(val route:String){
     //各画面の移動用の名前
     object Home: Screen("home")
-    object Notes: Screen("notes")
-    object Search: Screen("search")
-    object Reels: Screen("reels")
+    object Notes: Screen("reels")
+    object Search: Screen("notes")
+    object Reels: Screen("search")
     object Profile: Screen("profile")
 }
