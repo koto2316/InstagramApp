@@ -2,6 +2,8 @@ package com.example.instagram.ui.screen.home
 //Packageに書くのはフォルダまで
 //クラス名や関数名は書いてはいけない
 
+import com.example.instagram.R
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -11,9 +13,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.layout.ContentScale
 
 @Composable
 fun HomeScreen(){
@@ -125,12 +129,13 @@ fun PostItem(userName: String){
             modifier = Modifier.padding(8.dp)
         )
 
-        //投稿画像代わりのエリア
-        Box(
+        Image(
+            painter = painterResource(id = R.drawable.home_post_compressed),
+            contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(250.dp)
-                .background(MaterialTheme.colorScheme.surfaceVariant)
+                .height(250.dp),
+            contentScale = ContentScale.Crop
         )
 
         Text(

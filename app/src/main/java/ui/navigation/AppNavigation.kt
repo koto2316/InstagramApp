@@ -13,9 +13,13 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.ui.platform.LocalFocusManager
+import com.example.instagram.screen.editprofile.EditProfileScreen
 import com.example.instagram.ui.screen.home.HomeScreen
 import com.example.instagram.ui.screen.profile.ProfileScreen
-import com.example.instagram.ui.navigation.Screen
+import com.example.instagram.ui.screen.notes.NotesScreen
+import com.example.instagram.ui.screen.reels.ReelsScreen
+import com.example.instagram.ui.screen.search.SearchScreen
 
 
 @Composable
@@ -23,6 +27,11 @@ fun AppNavigation(){
 
     //NavController:画面遷移を管理する司令塔
     val navController = rememberNavController()
+
+    //remember 画面が再描写されても値を保持する
+    //mutableStateOf 値が変わると画面も更新される
+    var name by remember { mutableStateOf("こと") }
+    var username by remember { mutableStateOf("koto_123") }
 
     //Scaffold:画面の骨組み（下にナビ、上に中身など）
     Scaffold(
@@ -39,8 +48,37 @@ fun AppNavigation(){
             composable(Screen.Home.route){
                 HomeScreen()
             }
+
+            composable(Screen.Reels.route){
+                ReelsScreen()
+            }
+
+            composable(Screen.Notes.route){
+                NotesScreen()
+            }
+
+            composable(Screen.Search.route){
+                SearchScreen()
+            }
+
             composable(Screen.Profile.route){
-                ProfileScreen()
+                ProfileScreen(
+                    navController = navController,
+                    name = name,
+                    username = username
+                )
+            }
+
+            composable(Screen.EditProfile.route){
+                EditProfileScreen(
+                    navController = navController,
+                    name = name,
+                    username = username,
+                    onSave = { newName, newUsername ->
+                        name = newName
+                        username = newUsername
+                    }
+                )
             }
         }
 
