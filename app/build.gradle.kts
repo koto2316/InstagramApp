@@ -62,6 +62,8 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.9.0")
     implementation(libs.androidx.ui)
     implementation(libs.androidx.foundation)
+    implementation(libs.androidx.ui.text)
+    implementation(libs.androidx.espresso.core)
     debugImplementation("androidx.compose.ui:ui-tooling")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

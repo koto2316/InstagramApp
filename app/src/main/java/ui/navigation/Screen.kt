@@ -8,6 +8,6 @@ sealed class Screen(val route:String){
     object Search: Screen("notes")
     object Reels: Screen("search")
     object Profile: Screen("profile")
-
     object EditProfile : Screen("edit_profile")
+    object Story:Screen("story")
 }

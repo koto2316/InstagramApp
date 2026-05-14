@@ -20,6 +20,7 @@ import com.example.instagram.ui.screen.profile.ProfileScreen
 import com.example.instagram.ui.screen.notes.NotesScreen
 import com.example.instagram.ui.screen.reels.ReelsScreen
 import com.example.instagram.ui.screen.search.SearchScreen
+import com.example.instagram.ui.screen.story.StoryScreen
 
 
 @Composable
@@ -27,6 +28,8 @@ fun AppNavigation(){
 
     //NavController:画面遷移を管理する司令塔
     val navController = rememberNavController()
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
 
     //remember 画面が再描写されても値を保持する
     //mutableStateOf 値が変わると画面も更新される
@@ -36,7 +39,10 @@ fun AppNavigation(){
     //Scaffold:画面の骨組み（下にナビ、上に中身など）
     Scaffold(
         bottomBar = {
-            BottomBar(navController)
+            //StoryScreenのときはbottomBarを表示しない
+            if(currentRoute != Screen.Story.route) {
+                BottomBar(navController)
+            }
         }
     ){padding->
         //NavHost:どの画面にいけるかを定義
@@ -46,7 +52,9 @@ fun AppNavigation(){
             modifier = Modifier.padding(padding)
         ){
             composable(Screen.Home.route){
-                HomeScreen()
+                HomeScreen(
+                    navController = navController
+                )
             }
 
             composable(Screen.Reels.route){
@@ -78,6 +86,12 @@ fun AppNavigation(){
                         name = newName
                         username = newUsername
                     }
+                )
+            }
+
+            composable(Screen.Story.route){
+                StoryScreen(
+                    navController = navController
                 )
             }
         }

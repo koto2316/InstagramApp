@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -28,8 +29,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -118,13 +121,6 @@ fun ProfileHeader(
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
-            Text(
-                text = name,
-                style = MaterialTheme.typography.titleLarge
-            )
-
-            Spacer(modifier = Modifier.height(12.dp))
-
 
             Row(
                 /* Arrangement = 並び方
@@ -134,14 +130,36 @@ fun ProfileHeader(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceAround //周りに均等な余白
             ) {
-                Box(
+
+                Image(
+                    painter = painterResource(id = R.drawable.profile_icon),
+                    contentDescription = null,
                     modifier = Modifier
-                        .size(80.dp)
-                        .background(Color.Gray, shape = CircleShape)
+                        .size(70.dp)
+                        .clip(CircleShape),
+                    contentScale = ContentScale.Crop
                 )
-                ProfileStat(label = "投稿", count = "12")
-                ProfileStat(label = "フォロワー", count = "34")
-                ProfileStat(label = "フォロー", count = "56")
+
+                Spacer(modifier = Modifier.width(16.dp))
+
+                Column {
+
+                    Text(
+                        text = name,
+                        style = MaterialTheme.typography.titleLarge
+                    )
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        ProfileStat(label = "投稿", count = "12")
+                        ProfileStat(label = "フォロワー", count = "34")
+                        ProfileStat(label = "フォロー", count = "56")
+                    }
+                }
             }
 
             Spacer(modifier = Modifier.height(16.dp))
